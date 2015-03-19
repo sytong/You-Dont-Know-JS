@@ -9,7 +9,7 @@ Especially if you're new to JavaScript, you should expect to spend quite a bit o
 
 Your journey to deeply learn JavaScript starts here.
 
-**Note:** As I said in Chapter 1, you should definitely try all this code yourself as you read and work through this chapter. Be aware that some of the code here assumes capabilities introduced in the newest version of JavaScript at the time of this writing (commonly referred to as "ES6" for the 6th edition of ECMAScript -- the official name of the JS specification). If you happen to be using an older, pre-ES6 browser, the code may not work. A recent update of a modern browser (like Chrome or Firefox) should be used.
+**Note:** As I said in Chapter 1, you should definitely try all this code yourself as you read and work through this chapter. Be aware that some of the code here assumes capabilities introduced in the newest version of JavaScript at the time of this writing (commonly referred to as "ES6" for the 6th edition of ECMAScript -- the official name of the JS specification). If you happen to be using an older, pre-ES6 browser, the code may not work. A recent update of a modern browser (like Chrome, Firefox, or IE) should be used.
 
 ## Values & Types
 
@@ -49,13 +49,13 @@ typeof a;				// "object"
 
 The return value from the `typeof` operator is always one of six (seven as of ES6!) string values. That is, `typeof "abc"` returns `"string"`, not `string`.
 
-Notice how in this snippet the `a` variable holds every different type of value, and that despite appearances, `typeof a` is not asking for the "type of `a`", but rather for the "type of the value currently in `a`". Only values have types in JavaScript; variables are just simple containers for those values.
+Notice how in this snippet the `a` variable holds every different type of value, and that despite appearances, `typeof a` is not asking for the "type of `a`", but rather for the "type of the value currently in `a`." Only values have types in JavaScript; variables are just simple containers for those values.
 
 `typeof null` is an interesting case, because it errantly returns `"object"`, when you'd expect it to return `"null"`.
 
 **Warning:** This is a long-standing bug in JS, but one that is likely never going to be fixed. Too much code on the Web relies on the bug and thus fixing it would cause a lot more bugs!
 
-Also, note `a = undefined`. We're explicitly setting `a` to this `undefined` value, but that is behaviorally no different from a variable that has no value set yet, like with the `var a;` line at the top of the snippet. A variable can get to this "undefined" value state in several different ways, including functions that return no values and usage of the `void` operator.
+Also, note `a = undefined`. We're explicitly setting `a` to the `undefined` value, but that is behaviorally no different from a variable that has no value set yet, like with the `var a;` line at the top of the snippet. A variable can get to this "undefined" value state in several different ways, including functions that return no values and usage of the `void` operator.
 
 ### Objects
 
@@ -156,7 +156,7 @@ Again, functions are a subtype of `objects` -- `typeof` returns `"function"`, wh
 
 ### Built-In Type Methods
 
-The built-in types and subtypes we've just discussed have built-in behaviors exposed as properties and methods that are quite powerful and useful.
+The built-in types and subtypes we've just discussed have behaviors exposed as properties and methods that are quite powerful and useful.
 
 For example:
 
@@ -235,7 +235,7 @@ Any value that's not on this "falsy" list is "truthy." Here are some examples of
 * `{ }`, `{ a: 42 }` (objects)
 * `function foo() { .. }` (functions)
 
-It's important to remember that a non-`boolean` value only follows this "truthy"/"falsy" coercion if it's actually coerced to a `boolean`. It's not all that difficult to confuse yourself with a situation that seems like it's coercing to a value to a `boolean` when it's not.
+It's important to remember that a non-`boolean` value only follows this "truthy"/"falsy" coercion if it's actually coerced to a `boolean`. It's not all that difficult to confuse yourself with a situation that seems like it's coercing a value to a `boolean` when it's not.
 
 #### Equality
 
@@ -261,11 +261,11 @@ The answer: `"42"` becomes `42`, to make the comparison `42 == 42`. In such a si
 
 The `a === b` produces `false`, because the coercion is not allowed, so the simple value comparison obviously fails. Many developers feel that `===` is more predictable, so they advocate always using that form and staying away from `==`. I think this view is very shortsighted. I believe `==` is a powerful tool that helps your program, *if you take the time to learn how it works.*
 
-We're not going to cover all the nitty-gritty details of how the coercion in `==` comparisons works here. Much of it is pretty sensible, but there are some important corner cases to be careful of. You can read section 11.9.3 of the specification (http://www.ecma-international.org/ecma-262/5.1/) to see the exact rules, and you'll be surprised at just how straightforward this mechanism is, compared to all the negative hype surrounding it.
+We're not going to cover all the nitty-gritty details of how the coercion in `==` comparisons works here. Much of it is pretty sensible, but there are some important corner cases to be careful of. You can read section 11.9.3 of the ES5 specification (http://www.ecma-international.org/ecma-262/5.1/) to see the exact rules, and you'll be surprised at just how straightforward this mechanism is, compared to all the negative hype surrounding it.
 
 To boil down a whole lot of details to a few simple takeaways, and help you know whether to use `==` or `===` in various situations, here are my simple rules:
 
-* If either value (aka side) in a comparison could be the literal `true` or `false` value, avoid `==` and use `===`.
+* If either value (aka side) in a comparison could be the `true` or `false` value, avoid `==` and use `===`.
 * If either value in a comparison could be of these specific values (`0`, `""`, or `[]` -- empty array), avoid `==` and use `===`.
 * In *all* other cases, you're safe to use `==`. Not only is it safe, but in many cases it simplifies your code in a way that improves readability.
 
@@ -287,7 +287,7 @@ b == c;		// true
 a == b;		// false
 ```
 
-**Note:** For more information about the `==` equality comparison rules, see the specification (section 11.9.3) and also consult Chapter 4 of the *Types & Grammar* title of this series; see Chapter 2 for more information about values versus references.
+**Note:** For more information about the `==` equality comparison rules, see the ES5 specification (section 11.9.3) and also consult Chapter 4 of the *Types & Grammar* title of this series; see Chapter 2 for more information about values versus references.
 
 #### Inequality
 
@@ -295,7 +295,7 @@ The `<`, `>`, `<=`, and `>=` operators are used for inequality, referred to in t
 
 But JavaScript `string` values can also be compared for inequality, using typical alphabetic rules (`"bar" < "foo"`).
 
-What about coercion? Similar rules as `==` comparison (though not exactly identical!) apply to the inequality operators. Notably, there are no "strict inequality" operators that would disallow coercion the same way `===` "strict equality" does with equality.
+What about coercion? Similar rules as `==` comparison (though not exactly identical!) apply to the inequality operators. Notably, there are no "strict inequality" operators that would disallow coercion the same way `===` "strict equality" does.
 
 Consider:
 
@@ -308,7 +308,7 @@ a < b;		// true
 b < c;		// true
 ```
 
-What happens here? In section 11.8.5 of the specification, it says that if both values in the `<` comparison are `string`s, as it is with `b < c`, the comparison is made lexicographically (aka alphabetically like a dictionary). But if one or both is not a `string`, as it is with `a < b`, then both values are coerced to be `number`s, and a typical numeric comparison occurs.
+What happens here? In section 11.8.5 of the ES5 specification, it says that if both values in the `<` comparison are `string`s, as it is with `b < c`, the comparison is made lexicographically (aka alphabetically like a dictionary). But if one or both is not a `string`, as it is with `a < b`, then both values are coerced to be `number`s, and a typical numeric comparison occurs.
 
 The biggest gotcha you may run into here with comparisons between potentially different value types -- remember, there are no "strict inequality" forms to use -- is when one of the values cannot be made into a valid number, such as:
 
@@ -325,11 +325,11 @@ Wait, how can all three of those comparisons be `false`? Because the `b` value i
 
 The `==` comparison fails for a different reason. `a == b` could fail if it's interpreted either as `42 == NaN` or `"42" == "foo"` -- as we explained earlier, the former is the case.
 
-**Note:** For more information about the inequality comparison rules, see section 11.8.5 of the specification and also consult Chapter 4 of the *Types & Grammar* title of this series.
+**Note:** For more information about the inequality comparison rules, see section 11.8.5 of the ES5 specification and also consult Chapter 4 of the *Types & Grammar* title of this series.
 
 ## Variables
 
-In JavaScript, variable names (as well as function names) must be valid *identifiers*. The strict and complete rules for valid characters in identifiers are a little complex when you consider nontraditional characters such as Unicode. If you only consider typical ASCII alphanumeric characters, though, the rules are simple.
+In JavaScript, variable names (including function names) must be valid *identifiers*. The strict and complete rules for valid characters in identifiers are a little complex when you consider nontraditional characters such as Unicode. If you only consider typical ASCII alphanumeric characters, though, the rules are simple.
 
 An identifier must start with `a`-`z`, `A`-`Z`, `$`, or `_`. It can then contain any of those characters plus the numerals `0`-`9`.
 
@@ -436,7 +436,7 @@ foo();
 
 Because of using `let` instead of `var`, `b` will belong only to the `if` statement and thus not to the whole `foo()` function's scope. Similarly, `c` belongs only to the `while` loop. Block scoping is very useful for managing your variable scopes in a more fine-grained fashion, which can make your code much easier to maintain over time.
 
-**Note:** For more information about scope, see the *Scope & Closures* title of this series.
+**Note:** For more information about scope, see the *Scope & Closures* title of this series. See the *ES6 & Beyond* title of this series for more information about `let` block scoping.
 
 ## Conditionals
 
@@ -535,7 +535,7 @@ function foo() {
 	}
 }
 
-// this code is not stict mode
+// this code is not strict mode
 ```
 
 Compare that to:
@@ -618,11 +618,11 @@ There's another way to execute a function expression, which is typically referre
 // "Hello!"
 ```
 
-The outer `( .. )` that surrounds the `(function IIFE(){ .. })` function expression is just a nuance of JS syntax needed to prevent it from being treated as a normal function declaration.
+The outer `( .. )` that surrounds the `(function IIFE(){ .. })` function expression is just a nuance of JS grammar needed to prevent it from being treated as a normal function declaration.
 
 The final `()` on the end of the expression -- the `})();` line -- is what actually executes the function expression referenced immediately before it.
 
-That may seem strange, but it's not as foreign as first glance. Consider the similarities between `foo` and `bar` here:
+That may seem strange, but it's not as foreign as first glance. Consider the similarities between `foo` and `IIFE` here:
 
 ```js
 function foo() { .. }
@@ -683,13 +683,17 @@ function makeAdder(x) {
 
 	return add;
 }
+```
 
-// `plusOne(..)` is a reference to the inner `add(..)`
+The reference to the inner `add(..)` function that gets returned with each call to the outer `makeAdder(..)` is able to remember whatever `x` value was passed in to `makeAdder(..)`. Now, let's use `makeAdder(..)`:
+
+```js
+// `plusOne` gets a reference to the inner `add(..)`
 // function with closure over the `x` parameter of
 // the outer `makeAdder(..)`
 var plusOne = makeAdder( 1 );
 
-// `plusTen(..)` is a reference to the inner `add(..)`
+// `plusTen` gets a reference to the inner `add(..)`
 // function with closure over the `x` parameter of
 // the outer `makeAdder(..)`
 var plusTen = makeAdder( 10 );
@@ -700,12 +704,10 @@ plusOne( 41 );		// 42 <-- 1 + 41
 plusTen( 13 );		// 23 <-- 10 + 13
 ```
 
-The reference to the inner `add(..)` function that gets returned with each call to the outer `makeAdder(..)` is able to remember whatever `x` value was passed in to `makeAdder(..)`.
-
 More on how this code works:
 
-1. When we call `makeAdder(1)`, we get back a reference to its inner `add(..)` that remembers `x` as `1`, which we call `plusOne`.
-2. When we call `makeAdder(10)`, we get back another reference to its inner `add(..)` that remembers `x` as `10`, which we call `plusTen`.
+1. When we call `makeAdder(1)`, we get back a reference to its inner `add(..)` that remembers `x` as `1`. We call this function reference `plusOne(..)`.
+2. When we call `makeAdder(10)`, we get back another reference to its inner `add(..)` that remembers `x` as `10`. We call this function reference `plusTen(..)`.
 3. When we call `plusOne(3)`, it adds `3` (its inner `y`) to the `1` (remembered by `x`), and we get `4` as the result.
 4. When we call `plusTen(13)`, it adds `13` (its inner `y`) to the `10` (remembered by `x`), and we get `23` as the result.
 
@@ -745,6 +747,8 @@ fred.login( "fred", "12Battery34!" );
 
 The `User()` function serves as an outer scope that holds the variables `username` and `password`, as well as the inner `doLogin()` function; these are all private inner details of this `User` module that cannot be accessed from the outside world.
 
+**Warning:** We are not callling `new User()` here, on purpose, despite the fact that probably seems more common to most readers. `User()` is just a function, not a class to be instantiated, so it's just called normally. Using `new` would be inappropriate and actually waste resources.
+
 Executing `User()` creates an *instance* of the `User` module -- a whole new scope is created, and thus a whole new copy of each of these inner variables/functions. We assign this instance to `fred`. If we run `User()` again, we'd get a new instance entirely separate from `fred`.
 
 The inner `doLogin()` function has a closure over `username` and `password`, meaning it will retain its access to them even after the `User()` function finishes running.
@@ -759,13 +763,13 @@ There's a good chance that with just this brief glimpse at closure and the modul
 
 From here, go read the *Scope & Closures* title of this series for a much more in-depth exploration.
 
-## `this` Keyword
+## `this` Identifier
 
-Another very commonly misunderstood concept in JavaScript is the `this` keyword. Again, there's a whole set of book chapters on it in the *this & Object Prototypes* title of this series, so here we'll just briefly introduce the concept.
+Another very commonly misunderstood concept in JavaScript is the `this` identifier. Again, there's a couple of chapters on it in the *this & Object Prototypes* title of this series, so here we'll just briefly introduce the concept.
 
 While it may often seem that `this` is related to "object-oriented patterns," in JS `this` is a different mechanism.
 
-If a function has a `this` keyword reference inside it, that `this` keyword usually points to an `object`. But which `object` it points to depends on how the function was called.
+If a function has a `this` reference inside it, that `this` reference usually points to an `object`. But which `object` it points to depends on how the function was called.
 
 It's important to realize that `this` *does not* refer to the function itself, as is the most common misconception.
 
@@ -797,7 +801,7 @@ new foo();			// undefined
 
 There are four rules for how `this` gets set, and they're shown in those last four lines of that snippet.
 
-1. `foo()` ends up setting `this` to the global object in non-strict mode -- in strict mode, `this` would be `undefined` and you'd get an error -- so `"global"` is the value found for `this.bar`.
+1. `foo()` ends up setting `this` to the global object in non-strict mode -- in strict mode, `this` would be `undefined` and you'd get an error in accessing the `bar` property -- so `"global"` is the value found for `this.bar`.
 2. `obj1.foo()` sets `this` to the `obj1` object.
 3. `foo.call(obj2)` sets `this` to the `obj2` object.
 4. `new foo()` sets `this` to a brand new empty object.
@@ -840,7 +844,7 @@ This linkage may seem like a strange feature of the language. The most common wa
 
 But a more natural way of applying prototypes is a pattern called "behavior delegation," where you intentionally design your linked objects to be able to *delegate* from one to the other for parts of the needed behavior.
 
-**Note:** For more information about prototypes and behavior delegation, see Chapters 3-6 of the *this & Object Prototypes* title of this series.
+**Note:** For more information about prototypes and behavior delegation, see Chapters 4-6 of the *this & Object Prototypes* title of this series.
 
 ## Old & New
 
@@ -856,7 +860,7 @@ There are two main techniques you can use to "bring" the newer JavaScript stuff 
 
 The word "polyfill" is an invented term (by Remy Sharp) (https://remysharp.com/2010/10/08/what-is-a-polyfill) used to refer to taking the definition of a newer feature and producing a piece of code that's equivalent to the behavior, but is able to run in older JS environments.
 
-For example, ES6 defines a utility called `Number.isNaN(..)` to provide an accurate non-buggy check for `NaN` values, replacing the original `isNaN(..)` utility. But it's easy to polyfill that utility so that you can start using it in your code regardless of whether the end user is in an ES6 browser or not.
+For example, ES6 defines a utility called `Number.isNaN(..)` to provide an accurate non-buggy check for `NaN` values, deprecating the original `isNaN(..)` utility. But it's easy to polyfill that utility so that you can start using it in your code regardless of whether the end user is in an ES6 browser or not.
 
 Consider:
 
@@ -868,7 +872,7 @@ if (!Number.isNaN) {
 }
 ```
 
-First, the `if` statement guards against applying the polyfill definition in ES6 browsers where it will already exist. If it's not already present, we define `Number.isNaN(..)`.
+The `if` statement guards against applying the polyfill definition in ES6 browsers where it will already exist. If it's not already present, we define `Number.isNaN(..)`.
 
 **Note:** The check we do here takes advantage of a quirk with `NaN` values, which is that they're the only value in the whole language that is not equal to itself. So the `NaN` value is the only one that would make `x !== x` be `true`.
 
@@ -924,8 +928,8 @@ If you use a transpiler by default, you'll always be able to make that switch to
 
 There are quite a few great transpilers for you to choose from. Here are some good options at the time of this writing:
 
-* Babel (https://babeljs.io): Transpiles ES6+ into ES5 (formerly 6to5)
-* Traceur (https://github.com/google/traceur-compiler): Transpiles ES6, ES7, .. into ES5.
+* Babel (https://babeljs.io) (formerly 6to5): Transpiles ES6+ into ES5
+* Traceur (https://github.com/google/traceur-compiler): Transpiles ES6, ES7, and beyond into ES5
 
 ## Non-JavaScript
 
@@ -953,6 +957,6 @@ This book, and this whole series, focuses on JavaScript the language. That's why
 
 The first step to learning JavaScript's flavor of programming is to get a basic understanding of its core mechanisms like values, types, function closures, `this`, and prototypes.
 
-Of course, each of these topics deserves much greater coverage than you've seen here, but that's why they have chapters and books dedicated to them throughout the rest of this series. After you feel pretty comfortable with the concepts and code samples in this chapter, the rest of the series awaits you to really dig in and get to know the language.
+Of course, each of these topics deserves much greater coverage than you've seen here, but that's why they have chapters and books dedicated to them throughout the rest of this series. After you feel pretty comfortable with the concepts and code samples in this chapter, the rest of the series awaits you to really dig in and get to know the language deeply.
 
 The final chapter of this book will briefly summarize each of the other titles in the series and the other concepts they cover besides what we've already explored.
